@@ -1,19 +1,26 @@
 package com.example.demo.model;
 
 
+import com.example.demo.enums.GalleryType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+import java.time.LocalDateTime;
+
+@Document(collection = "photos")
+@Data
 public class Photo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String url;
+    private String id;
+    private String title;
     private String description;
-
-    // Getters and Setters
+    private GalleryType galleryType;
+    private String imageUrl;
+    private String uploadedBy;
+    private LocalDateTime uploadedAt;
 }

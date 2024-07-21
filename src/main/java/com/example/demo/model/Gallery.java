@@ -1,17 +1,18 @@
 package com.example.demo.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-public class Entertainment {
+@Document(collection = "galleries")
+@Data
+public class Gallery {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String title;
+    private String id;
+    private String name;
     private String description;
-
-    // Getters and Setters
 }

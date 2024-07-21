@@ -1,10 +1,10 @@
 package com.example.demo.repository;
 
 
-import com.example.demo.model.Entertainment;
+import com.example.demo.model.Gallery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EntertainmentRepository extends JpaRepository<Entertainment, Long> {
+public interface GalleryRepository extends JpaRepository<Gallery, Long> {
 }
