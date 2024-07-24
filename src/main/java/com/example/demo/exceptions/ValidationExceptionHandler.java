@@ -1,6 +1,6 @@
 package com.example.demo.exceptions;
 
-import com.waystech.jwtss.dto.response.GenericResponse;
+import com.example.demo.dto.response.GenericResponse;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

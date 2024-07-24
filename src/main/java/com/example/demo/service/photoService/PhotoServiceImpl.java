@@ -2,6 +2,7 @@ package com.example.demo.service.photoService;
 
 
 import com.example.demo.enums.GalleryType;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.model.Photo;
 import com.example.demo.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class PhotoServiceImpl implements PhotoService {
+public class PhotoServiceImpl implements IPhotoService {
 
     @Autowired
     private PhotoRepository photoRepository;
@@ -61,8 +62,51 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    public Page<Photo> getPhotosByGalleryId(String galleryId, int page, int size) {
+    public Photo getPhotoById(String id) {
+        return photoRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Photo not found with title"));
+    }
+
+    @Override
+    public Page<Photo> getPhotosByGalleryType(String galleryType, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return photoRepository.findByGalleryType(galleryId, pageable);
+        return photoRepository.findByGalleryType(galleryType, pageable);
+    }
+
+    @Override
+    public void deletePhotoById(String id) {
+        if (photoRepository.existsById(id)) {
+            photoRepository.deleteById(id);
+        } else {
+            throw new NotFoundException("Photo not found");
+        }
+    }
+
+    @Override
+    public Photo updatePhotoById(String id, String title, String description, GalleryType galleryType, MultipartFile file) {
+        Photo photo = photoRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Photo not found with id: " + id));
+
+        if (title != null && !title.isEmpty()) {
+            photo.setTitle(title);
+        }
+        if (description != null && !description.isEmpty()) {
+            photo.setDescription(description);
+        }
+        if (galleryType != null) {
+            photo.setGalleryType(galleryType);
+        }
+        if (file != null && !file.isEmpty()) {
+            String fileId = UUID.randomUUID().toString();
+            String filePath = uploadDir + "/" + fileId + "_" + file.getOriginalFilename();
+            try {
+                saveFile(file, filePath);
+                photo.setImageUrl(filePath);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to upload file", e);
+            }
+        }
+        photoRepository.save(photo);
+        return photo;
     }
 }

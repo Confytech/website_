@@ -2,19 +2,19 @@ package com.example.demo.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class UserNotFoundException extends RuntimeException{
+public class NotFoundException extends RuntimeException{
     private String message;
     private HttpStatus httpStatus;
 
-    public UserNotFoundException(String message) {
+    public NotFoundException(String message) {
         super(message);
     }
 
-    public UserNotFoundException(HttpStatus httpStatus) {
+    public NotFoundException(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
     }
 
-    public UserNotFoundException(String message, HttpStatus httpStatus) {
+    public NotFoundException(String message, HttpStatus httpStatus) {
         this.message = message;
         this.httpStatus = httpStatus;
     }

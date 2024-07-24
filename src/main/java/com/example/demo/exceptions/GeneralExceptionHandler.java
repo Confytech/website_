@@ -1,7 +1,7 @@
 package com.example.demo.exceptions;
 
 
-import com.waystech.jwtss.dto.response.GenericResponse;
+import com.example.demo.dto.response.GenericResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

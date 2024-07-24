@@ -35,7 +35,7 @@ public class CreateAdmin {
             user.setCreationDate(LocalDateTime.now());
             user.setLastLogin(LocalDateTime.now());
             user.setPhoneNumber("09039156872");
-            user.setFullName("David Black");
+            user.setFullName("Bello Wajiu Olarewaju");
             user.setIsVerified(true);
             userRepository.save(user);
         }
